@@ -7,12 +7,16 @@
 
 import UIKit
 
+
+
 class AddItemViewController: UITableViewController{
     
     @IBOutlet weak var itemTextField: UITextField!
-    
-    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var remindMeSwitch: UISwitch!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,5 +24,11 @@ class AddItemViewController: UITableViewController{
     
     
     @IBAction func done(_ sender: UIBarButtonItem) {
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
     }
 }

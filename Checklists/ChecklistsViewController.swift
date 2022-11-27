@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ChecklistsViewControllerDelegate {
+    func addChecklist() -> ChecklistData
+}
+
 class ChecklistsViewController: UITableViewController {
     
     @IBOutlet weak var mainNavTitle: UINavigationItem!
