@@ -28,7 +28,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of list" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7lq-ky-DKI">
                                                     <rect key="frame" x="10" y="0.0" width="300" height="34.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -345,7 +345,7 @@
                             <outlet property="delegate" destination="jzW-N5-xhd" id="wbB-Qj-Zoi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Choose Icon" id="5Be-Ht-rfg"/>
+                    <navigationItem key="navigationItem" title="Choose Icon" largeTitleDisplayMode="never" id="5Be-Ht-rfg"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDo-LX-iWZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -387,7 +387,7 @@
                             <outlet property="delegate" destination="Hfs-NC-0GI" id="u8L-kM-2lU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Items Title" id="PsD-Dw-ge2">
+                    <navigationItem key="navigationItem" title="Items Title" largeTitleDisplayMode="never" id="PsD-Dw-ge2">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VSZ-oB-Snf">
                             <connections>
                                 <segue destination="Jf7-Go-XjF" kind="show" id="vuV-an-mbl"/>
@@ -513,7 +513,7 @@
                             <outlet property="delegate" destination="Jf7-Go-XjF" id="Sd5-KJ-Zds"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Item" id="6rJ-cB-COt">
+                    <navigationItem key="navigationItem" title="Add Item" largeTitleDisplayMode="never" id="6rJ-cB-COt">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="hGO-aG-D4e">
                             <connections>
                                 <action selector="cancel:" destination="Jf7-Go-XjF" id="Bo9-Y3-6aq"/>

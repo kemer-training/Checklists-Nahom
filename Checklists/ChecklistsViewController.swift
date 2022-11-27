@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ChecklistsViewControllerDelegate {
-    func addChecklist() -> ChecklistData
+    func addChecklist() -> (String, UIImage)
 }
 
 class ChecklistsViewController: UITableViewController {
@@ -16,19 +16,30 @@ class ChecklistsViewController: UITableViewController {
     @IBOutlet weak var mainNavTitle: UINavigationItem!
     var numberOfRows = 0
     
+    var delegate: ChecklistsViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addList(text: "To Do", icon: "Inbox")
-        addList(text: "Birthdays", icon: "Birthdays")
+        navigationController?.navigationBar.prefersLargeTitles = true
+//        addList(text: "To Do", icon: UIImage(named: "Inbox")!)
+//        addList(text: "Birthdays", icon: UIImage(named: "Birthdays")!)
     }
-    
-    func addList(text: String, icon: String){
+    override func viewWillAppear(_ animated: Bool) {
+        if let text = delegate?.addChecklist().0,
+           let icon = delegate?.addChecklist().1 {
+            addList(text: text, icon: icon)
+            delegate = nil
+        }
+        
+    }
+    func addList(text: String, icon: UIImage){
         let list = ChecklistData()
         list.text = text
         list.icon = icon
         lists.append(list)
+        
         numberOfRows += 1
+        tableView.reloadData()
         
     }
     
@@ -40,7 +51,7 @@ class ChecklistsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
         for _ in lists {
             cell.textLabel?.text = lists[indexPath.row].text
-            cell.imageView?.image = UIImage(named: lists[indexPath.row].icon)
+            cell.imageView?.image = lists[indexPath.row].icon
         }
 
         return cell

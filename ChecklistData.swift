@@ -5,11 +5,11 @@
 //  Created by NAHØM on 27/11/2022.
 //
 
-import Foundation
+import UIKit
 
 class ChecklistData{
     var text = ""
-    var icon = ""
+    var icon = UIImage(named: "Folder")
     var items: [ItemData] = []
 }
 
