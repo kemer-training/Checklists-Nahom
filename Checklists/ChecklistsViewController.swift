@@ -14,7 +14,8 @@ protocol ChecklistsViewControllerDelegate {
 class ChecklistsViewController: UITableViewController {
     
     @IBOutlet weak var mainNavTitle: UINavigationItem!
-    var numberOfRows = 0
+//    var numberOfListRows = 0
+    var currentListIndex = 0
     
     var delegate: ChecklistsViewControllerDelegate?
     
@@ -38,13 +39,13 @@ class ChecklistsViewController: UITableViewController {
         list.icon = icon
         lists.append(list)
         
-        numberOfRows += 1
+        numberOfLists += 1
         tableView.reloadData()
         
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRows
+        return numberOfLists
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,5 +60,7 @@ class ChecklistsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        currentListIndex = indexPath.row
+        performSegue(withIdentifier: "itemsSegue", sender: nil)
     }
 }

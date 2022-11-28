@@ -11,6 +11,7 @@ class ChecklistData{
     var text = ""
     var icon = UIImage(named: "Folder")
     var items: [ItemData] = []
+    var numberOfItems = 0
 }
 
 class ItemData{
@@ -19,3 +20,4 @@ class ItemData{
 }
 
 var lists: [ChecklistData] = []
+var numberOfLists = 0
