@@ -22,22 +22,27 @@ class AddChecklistViewController: UITableViewController, ChecklistsViewControlle
     
     var delegate: AddChecklistViewControllerDelegate?
     
+    
+//    var isValid: Bool {
+//        !checklistTextField.text!.isEmpty
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checklistTextField.becomeFirstResponder()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         updateIcon()
     }
     
     
     @IBAction func done(_ sender: UIBarButtonItem) {
         
-        guard let validText = validateText() else { return }
+        guard let validText = validateText() else {
+            return
+        }
         
         let i = navigationController?.viewControllers.firstIndex(of: self)
         let vc = navigationController?.viewControllers[i!-1] as! ChecklistsViewController

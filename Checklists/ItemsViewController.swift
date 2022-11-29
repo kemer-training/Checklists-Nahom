@@ -7,38 +7,64 @@
 
 import UIKit
 
-//protocol ItemsViewControllerDelegate{
-//
-//}
+protocol ItemsViewControllerDelegate{
+    func getCurrentListIndex() -> Int
+}
 
-class ItemsViewController: UITableViewController{
-    var currentIndex = -1   // zero indexed
-    var refactor_me = 0
+class ItemsViewController: UITableViewController {
+    
+    
+    
+//    var itemCount = -1   // zero indexed
+    var itemText = ""
+    
+//    var delegate: ItemsViewControllerDelegate?
+    var delegate: AddItemViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addItem(text: "Walking My Dog", at: refactor_me)
-        addItem(text: "Learning iOS Development", at: refactor_me)
-        addItem(text: "Playing Guitar", at: refactor_me)
+        print("<- -------- Test String -------- ->")
+//        addItem(text: "Walking My Dog", at: currentListIndex)
+//        addItem(text: "Learning iOS Development", at: currentListIndex)
+//        addItem(text: "Playing Guitar", at: currentListIndex)
+        
     }
     
-    func addItem(text: String, at index: Int){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print(currentListIndex, "<- -------- Test String -------- ->", lists[currentListIndex].items.count)
+//        if let index = delegate?.getCurrentListIndex(){
+//            currentListIndex = index
+//        }
+        
+        guard let delegate = delegate?.getItem() else { return }
+            addItem(text: delegate.0!, remindMe: delegate.1, date: delegate.2, at: currentListIndex)
+        tableView.reloadData()
+    }
+    
+    func addItem(text: String, remindMe: Bool, date: Date, at index: Int){
         let item = ItemData()
         item.text = text
         lists[index].items.append(item)
-        currentIndex += 1
+        lists[index].numberOfItems += 1
+        print("add item", index, lists[index].items.count)
     }
     
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentIndex+1
+        return lists[currentListIndex].items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        
-        cell.textLabel?.text = lists[refactor_me].items[indexPath.row].text
+
+            cell.textLabel?.text = lists[currentListIndex].items[indexPath.row].text
         configureCheckmark(for: cell, at: indexPath)
+        
+//        cell.textLabel?.text = lists[currentListIndex].items[indexPath.row].text
         
         return cell
     }
@@ -48,14 +74,15 @@ class ItemsViewController: UITableViewController{
         
         let cell = tableView.cellForRow(at: indexPath)
         
-        lists[refactor_me].items[indexPath.row].checked.toggle()
+        lists[currentListIndex].items[indexPath.row].checked.toggle()
         configureCheckmark(for: cell!, at: indexPath)
+        
         
     }
     
     
     func configureCheckmark(for cell: UITableViewCell , at indexPath: IndexPath){
-        if lists[refactor_me].items[indexPath.row].checked {
+        if lists[currentListIndex].items[indexPath.row].checked {
             cell.imageView?.image = UIImage(named: "Icon-20")
         }
         else {

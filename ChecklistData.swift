@@ -8,6 +8,7 @@
 import UIKit
 
 class ChecklistData{
+    
     var text = ""
     var icon = UIImage(named: "Folder")
     var items: [ItemData] = []
@@ -21,3 +22,6 @@ class ItemData{
 
 var lists: [ChecklistData] = []
 var numberOfLists = 0
+var currentListIndex = 0
+
+

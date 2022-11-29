@@ -9,22 +9,25 @@ import UIKit
 
 protocol ChecklistsViewControllerDelegate {
     func addChecklist() -> (String, UIImage)
+    
 }
 
-class ChecklistsViewController: UITableViewController {
+
+class ChecklistsViewController: UITableViewController, ItemsViewControllerDelegate {
     
     @IBOutlet weak var mainNavTitle: UINavigationItem!
-//    var numberOfListRows = 0
-    var currentListIndex = 0
     
+
     var delegate: ChecklistsViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("checklist viewdidload")
         navigationController?.navigationBar.prefersLargeTitles = true
-//        addList(text: "To Do", icon: UIImage(named: "Inbox")!)
-//        addList(text: "Birthdays", icon: UIImage(named: "Birthdays")!)
+        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         if let text = delegate?.addChecklist().0,
            let icon = delegate?.addChecklist().1 {
@@ -33,6 +36,7 @@ class ChecklistsViewController: UITableViewController {
         }
         
     }
+    
     func addList(text: String, icon: UIImage){
         let list = ChecklistData()
         list.text = text
@@ -44,12 +48,20 @@ class ChecklistsViewController: UITableViewController {
         
     }
     
+    func getCurrentListIndex() -> Int {
+        return currentListIndex
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfLists
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
+        
+        
         for _ in lists {
             cell.textLabel?.text = lists[indexPath.row].text
             cell.imageView?.image = lists[indexPath.row].icon
@@ -58,9 +70,17 @@ class ChecklistsViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         currentListIndex = indexPath.row
+        
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "items") as! ItemsViewController
+//
+//        vc.delegate = self
+//        navigationController?.pushViewController(vc, animated: true)
+        
         performSegue(withIdentifier: "itemsSegue", sender: nil)
     }
+    
 }
