@@ -7,37 +7,19 @@
 
 import UIKit
 
-protocol ItemsViewControllerDelegate{
-    func getCurrentListIndex() -> Int
-}
 
 class ItemsViewController: UITableViewController {
-    
-    
-    
-//    var itemCount = -1   // zero indexed
-    var itemText = ""
-    
-//    var delegate: ItemsViewControllerDelegate?
+
+
     var delegate: AddItemViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("<- -------- Test String -------- ->")
-//        addItem(text: "Walking My Dog", at: currentListIndex)
-//        addItem(text: "Learning iOS Development", at: currentListIndex)
-//        addItem(text: "Playing Guitar", at: currentListIndex)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        print(currentListIndex, "<- -------- Test String -------- ->", lists[currentListIndex].items.count)
-//        if let index = delegate?.getCurrentListIndex(){
-//            currentListIndex = index
-//        }
         
         guard let delegate = delegate?.getItem() else { return }
             addItem(text: delegate.0!, remindMe: delegate.1, date: delegate.2, at: currentListIndex)
@@ -49,7 +31,6 @@ class ItemsViewController: UITableViewController {
         item.text = text
         lists[index].items.append(item)
         lists[index].numberOfItems += 1
-        print("add item", index, lists[index].items.count)
     }
     
     
@@ -61,10 +42,8 @@ class ItemsViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
 
-            cell.textLabel?.text = lists[currentListIndex].items[indexPath.row].text
+        cell.textLabel?.text = lists[currentListIndex].items[indexPath.row].text
         configureCheckmark(for: cell, at: indexPath)
-        
-//        cell.textLabel?.text = lists[currentListIndex].items[indexPath.row].text
         
         return cell
     }
@@ -76,10 +55,8 @@ class ItemsViewController: UITableViewController {
         
         lists[currentListIndex].items[indexPath.row].checked.toggle()
         configureCheckmark(for: cell!, at: indexPath)
-        
-        
+
     }
-    
     
     func configureCheckmark(for cell: UITableViewCell , at indexPath: IndexPath){
         if lists[currentListIndex].items[indexPath.row].checked {
@@ -89,6 +66,5 @@ class ItemsViewController: UITableViewController {
             cell.imageView?.image = UIImage(named: "No Icon 1")
         }
     }
-    
 }
 

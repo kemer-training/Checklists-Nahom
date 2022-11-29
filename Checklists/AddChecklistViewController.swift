@@ -11,7 +11,7 @@ protocol AddChecklistViewControllerDelegate{
     func assignIcon() -> UIImage
 }
 
-class AddChecklistViewController: UITableViewController, ChecklistsViewControllerDelegate {
+class AddChecklistViewController: UITableViewController, AddChecklistsViewControllerDelegate {
     
     
     
@@ -21,11 +21,7 @@ class AddChecklistViewController: UITableViewController, ChecklistsViewControlle
     var icon: UIImage = UIImage()
     
     var delegate: AddChecklistViewControllerDelegate?
-    
-    
-//    var isValid: Bool {
-//        !checklistTextField.text!.isEmpty
-//    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

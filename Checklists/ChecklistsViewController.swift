@@ -7,18 +7,18 @@
 
 import UIKit
 
-protocol ChecklistsViewControllerDelegate {
+protocol AddChecklistsViewControllerDelegate {
     func addChecklist() -> (String, UIImage)
     
 }
 
 
-class ChecklistsViewController: UITableViewController, ItemsViewControllerDelegate {
+class ChecklistsViewController: UITableViewController {
     
     @IBOutlet weak var mainNavTitle: UINavigationItem!
     
 
-    var delegate: ChecklistsViewControllerDelegate?
+    var delegate: AddChecklistsViewControllerDelegate?
     
     
     override func viewDidLoad() {

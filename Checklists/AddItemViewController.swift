@@ -22,6 +22,7 @@ class AddItemViewController: UITableViewController, AddItemViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        itemTextField.becomeFirstResponder()
         
     }
 
@@ -33,7 +34,7 @@ class AddItemViewController: UITableViewController, AddItemViewControllerDelegat
         var trimmedInput = (itemTextField.text?.components(separatedBy: " "))!
         trimmedInput = trimmedInput.filter { !($0.isEmpty) }
         
-        var validText = trimmedInput.joined(separator: " ")
+        let validText = trimmedInput.joined(separator: " ")
         if validText.isEmpty{
             return nil
         }
@@ -41,9 +42,6 @@ class AddItemViewController: UITableViewController, AddItemViewControllerDelegat
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-//        guard let validText = validateText() else {
-//            return
-//        }
         
         let i = navigationController?.viewControllers.firstIndex(of: self)
         let vc = navigationController?.viewControllers[i!-1] as! ItemsViewController
