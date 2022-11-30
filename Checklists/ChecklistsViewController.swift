@@ -33,8 +33,10 @@ class ChecklistsViewController: UITableViewController {
             addList(text: text, icon: icon)
             delegate = nil
         }
-        var uncheckedItems = 0
+        
+        
         if !lists.isEmpty{
+            var uncheckedItems = 0
             for item in lists[currentListIndex].items{
                 if !item.checked{
                     uncheckedItems += 1
@@ -43,8 +45,6 @@ class ChecklistsViewController: UITableViewController {
             lists[currentListIndex].itemsRemaining = uncheckedItems
         }
         tableView.reloadData()
-        
-        
         
     }
     
@@ -55,7 +55,6 @@ class ChecklistsViewController: UITableViewController {
         lists.append(list)
         
         numberOfLists += 1
-        
         
     }
     
@@ -93,5 +92,4 @@ class ChecklistsViewController: UITableViewController {
         
         performSegue(withIdentifier: "itemsSegue", sender: nil)
     }
-    
 }

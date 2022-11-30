@@ -61,6 +61,18 @@ class ItemsViewController: UITableViewController {
 
     }
     
+//    override func tableView(
+//      _ tableView: UITableView,
+//      commit editingStyle: UITableViewCell.EditingStyle,
+//      forRowAt indexPath: IndexPath
+//    ) {
+//        lists[currentListIndex].items.remove(at: indexPath.row)
+//
+//      let indexPaths = [indexPath]
+//      tableView.deleteRows(at: indexPaths, with: .automatic)
+//    }
+
+    
     func configureCheckmark(for cell: UITableViewCell , at indexPath: IndexPath){
         if lists[currentListIndex].items[indexPath.row].checked {
             cell.imageView?.image = UIImage(named: "Icon-20")

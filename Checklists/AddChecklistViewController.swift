@@ -31,7 +31,7 @@ class AddChecklistViewController: UITableViewController, AddChecklistsViewContro
         super.viewWillAppear(animated)
         updateIcon()
     }
-    
+
     
     @IBAction func done(_ sender: UIBarButtonItem) {
         
@@ -70,7 +70,7 @@ class AddChecklistViewController: UITableViewController, AddChecklistsViewContro
         var trimmedInput = (checklistTextField.text?.components(separatedBy: " "))!
         trimmedInput = trimmedInput.filter { !($0.isEmpty) }
         
-        var validText = trimmedInput.joined(separator: " ")
+        let validText = trimmedInput.joined(separator: " ")
         if validText.isEmpty{
             return nil
         }
