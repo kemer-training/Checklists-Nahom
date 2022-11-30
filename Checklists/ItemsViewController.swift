@@ -22,7 +22,10 @@ class ItemsViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         guard let delegate = delegate?.getItem() else { return }
-            addItem(text: delegate.0!, remindMe: delegate.1, date: delegate.2, at: currentListIndex)
+        
+        addItem(text: delegate.0!, remindMe: delegate.1, date: delegate.2, at: currentListIndex)
+        
+        
         tableView.reloadData()
     }
     
@@ -31,6 +34,7 @@ class ItemsViewController: UITableViewController {
         item.text = text
         lists[index].items.append(item)
         lists[index].numberOfItems += 1
+        lists[index].itemsRemaining += 1
     }
     
     
@@ -44,7 +48,6 @@ class ItemsViewController: UITableViewController {
 
         cell.textLabel?.text = lists[currentListIndex].items[indexPath.row].text
         configureCheckmark(for: cell, at: indexPath)
-        
         return cell
     }
     

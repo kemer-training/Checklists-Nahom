@@ -17,13 +17,12 @@ class ChecklistsViewController: UITableViewController {
     
     @IBOutlet weak var mainNavTitle: UINavigationItem!
     
-
+    var itemsRemaining = 0
     var delegate: AddChecklistsViewControllerDelegate?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("checklist viewdidload")
         navigationController?.navigationBar.prefersLargeTitles = true
         
     }
@@ -34,6 +33,18 @@ class ChecklistsViewController: UITableViewController {
             addList(text: text, icon: icon)
             delegate = nil
         }
+        var uncheckedItems = 0
+        if !lists.isEmpty{
+            for item in lists[currentListIndex].items{
+                if !item.checked{
+                    uncheckedItems += 1
+                }
+            }
+            lists[currentListIndex].itemsRemaining = uncheckedItems
+        }
+        tableView.reloadData()
+        
+        
         
     }
     
@@ -44,12 +55,8 @@ class ChecklistsViewController: UITableViewController {
         lists.append(list)
         
         numberOfLists += 1
-        tableView.reloadData()
         
-    }
-    
-    func getCurrentListIndex() -> Int {
-        return currentListIndex
+        
     }
     
     
@@ -62,9 +69,18 @@ class ChecklistsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
         
         
-        for _ in lists {
-            cell.textLabel?.text = lists[indexPath.row].text
-            cell.imageView?.image = lists[indexPath.row].icon
+        cell.textLabel?.text = lists[indexPath.row].text
+        
+        cell.imageView?.image = lists[indexPath.row].icon
+        
+        if lists[indexPath.row].numberOfItems == 0{
+            cell.detailTextLabel?.text = "(No items)"
+        }
+        else if lists[indexPath.row].itemsRemaining == 0 {
+            cell.detailTextLabel?.text = "All Done"
+        }
+        else {
+            cell.detailTextLabel?.text = "\(lists[indexPath.row].itemsRemaining) remaining"
         }
 
         return cell
@@ -74,11 +90,6 @@ class ChecklistsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         currentListIndex = indexPath.row
-        
-//        let vc = storyboard?.instantiateViewController(withIdentifier: "items") as! ItemsViewController
-//
-//        vc.delegate = self
-//        navigationController?.pushViewController(vc, animated: true)
         
         performSegue(withIdentifier: "itemsSegue", sender: nil)
     }

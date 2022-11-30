@@ -13,6 +13,7 @@ class ChecklistData{
     var icon = UIImage(named: "Folder")
     var items: [ItemData] = []
     var numberOfItems = 0
+    var itemsRemaining = 0
 }
 
 class ItemData{

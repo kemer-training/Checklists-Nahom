@@ -14,7 +14,6 @@ protocol AddChecklistViewControllerDelegate{
 class AddChecklistViewController: UITableViewController, AddChecklistsViewControllerDelegate {
     
     
-    
     @IBOutlet weak var checklistTextField: UITextField!
     @IBOutlet weak var choosenIcon: UIImageView!
     var text = ""
