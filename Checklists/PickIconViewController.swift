@@ -8,7 +8,7 @@
 import UIKit
 
 
-class PickIconViewController: UITableViewController, AddChecklistViewControllerDelegate{
+class PickIconViewController: UITableViewController, IconPickerViewControllerDelegate{
     var choosenIcon = UIImage(named: "Folder")
     
     var iconsList = [
@@ -53,7 +53,7 @@ class PickIconViewController: UITableViewController, AddChecklistViewControllerD
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let i = navigationController?.viewControllers.firstIndex(of: self)
-        let vc = navigationController?.viewControllers[i!-1] as! AddChecklistViewController
+        let vc = navigationController?.viewControllers[i!-1] as! ListDetailViewController
         
         let cell = tableView.cellForRow(at: indexPath)
         choosenIcon = cell?.imageView?.image

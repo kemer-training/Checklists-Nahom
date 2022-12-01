@@ -1,5 +1,5 @@
 //
-//  AddChecklistViewController.swift
+//  ListDetailViewController.swift
 //  Checklists
 //
 //  Created by NAHØM on 27/11/2022.
@@ -7,11 +7,13 @@
 
 import UIKit
 
-protocol AddChecklistViewControllerDelegate{
+protocol IconPickerViewControllerDelegate{
     func assignIcon() -> UIImage
 }
 
-class AddChecklistViewController: UITableViewController, AddChecklistsViewControllerDelegate {
+class ListDetailViewController: UITableViewController, ListDetailViewControllerDelegate {
+    
+    
     
     
     @IBOutlet weak var checklistTextField: UITextField!
@@ -19,7 +21,7 @@ class AddChecklistViewController: UITableViewController, AddChecklistsViewContro
     var text = ""
     var icon: UIImage = UIImage()
     
-    var delegate: AddChecklistViewControllerDelegate?
+    var delegate: IconPickerViewControllerDelegate?
 
     
     override func viewDidLoad() {
@@ -40,7 +42,7 @@ class AddChecklistViewController: UITableViewController, AddChecklistsViewContro
         }
         
         let i = navigationController?.viewControllers.firstIndex(of: self)
-        let vc = navigationController?.viewControllers[i!-1] as! ChecklistsViewController
+        let vc = navigationController?.viewControllers[i!-1] as! AllListsViewController
         
         text = validText
         icon = choosenIcon.image!
@@ -55,6 +57,9 @@ class AddChecklistViewController: UITableViewController, AddChecklistsViewContro
         navigationController?.popViewController(animated: true)
     }
     
+    func addChecklist() -> (String, UIImage) {
+        return (text, icon)
+    }
     
     func updateIcon(){
         if let x = delegate?.assignIcon(){
@@ -62,7 +67,7 @@ class AddChecklistViewController: UITableViewController, AddChecklistsViewContro
         }
     }
     
-    func addChecklist() -> (String, UIImage) {
+    func addList() -> (String, UIImage) {
         return (text, icon)
     }
     

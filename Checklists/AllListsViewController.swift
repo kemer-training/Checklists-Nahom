@@ -1,5 +1,5 @@
 //
-//  ChecklistsViewController.swift
+//  AllListsViewController.swift
 //  Checklists
 //
 //  Created by NAHØM on 27/11/2022.
@@ -7,18 +7,18 @@
 
 import UIKit
 
-protocol AddChecklistsViewControllerDelegate {
+protocol ListDetailViewControllerDelegate {
     func addChecklist() -> (String, UIImage)
     
 }
 
 
-class ChecklistsViewController: UITableViewController {
+class AllListsViewController: UITableViewController {
     
     @IBOutlet weak var mainNavTitle: UINavigationItem!
     
     var itemsRemaining = 0
-    var delegate: AddChecklistsViewControllerDelegate?
+    var delegate: ListDetailViewControllerDelegate?
     
     
     override func viewDidLoad() {

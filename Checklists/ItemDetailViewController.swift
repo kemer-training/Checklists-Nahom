@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailViewController.swift
 //  Checklists
 //
 //  Created by NAHØM on 27/11/2022.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol AddItemViewControllerDelegate {
+protocol ItemDetailViewControllerDelegate {
     func getItem() -> (String?, Bool, Date)
 }
 
-class AddItemViewController: UITableViewController, AddItemViewControllerDelegate{
+class ItemDetailViewController: UITableViewController, ItemDetailViewControllerDelegate{
     
     
     @IBOutlet weak var itemTextField: UITextField!
@@ -44,7 +44,7 @@ class AddItemViewController: UITableViewController, AddItemViewControllerDelegat
     @IBAction func done(_ sender: UIBarButtonItem) {
         
         let i = navigationController?.viewControllers.firstIndex(of: self)
-        let vc = navigationController?.viewControllers[i!-1] as! ItemsViewController
+        let vc = navigationController?.viewControllers[i!-1] as! ChecklistViewController
         
 
         vc.delegate = self

@@ -1,5 +1,5 @@
 //
-//  ItemsViewController.swift
+//  ChecklistViewController.swift
 //  Checklists
 //
 //  Created by NAHØM on 27/11/2022.
@@ -8,10 +8,10 @@
 import UIKit
 
 
-class ItemsViewController: UITableViewController {
+class ChecklistViewController: UITableViewController {
 
 
-    var delegate: AddItemViewControllerDelegate?
+    var delegate: ItemDetailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
