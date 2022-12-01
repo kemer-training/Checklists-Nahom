@@ -7,13 +7,12 @@
 
 import UIKit
 
-protocol IconPickerViewControllerDelegate{
-    func assignIcon() -> UIImage
+protocol ListDetailViewControllerDelegate {
+    func addList() -> (text: String, icon: UIImage)
+    
 }
 
 class ListDetailViewController: UITableViewController, ListDetailViewControllerDelegate {
-    
-    
     
     
     @IBOutlet weak var checklistTextField: UITextField!
@@ -57,17 +56,13 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         navigationController?.popViewController(animated: true)
     }
     
-    func addChecklist() -> (String, UIImage) {
-        return (text, icon)
-    }
-    
     func updateIcon(){
         if let x = delegate?.assignIcon(){
             choosenIcon.image = x
         }
     }
     
-    func addList() -> (String, UIImage) {
+    func addList() -> (text: String, icon: UIImage) {
         return (text, icon)
     }
     

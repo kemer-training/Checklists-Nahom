@@ -7,10 +7,7 @@
 
 import UIKit
 
-protocol ListDetailViewControllerDelegate {
-    func addChecklist() -> (String, UIImage)
-    
-}
+
 
 
 class AllListsViewController: UITableViewController {
@@ -28,8 +25,8 @@ class AllListsViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let text = delegate?.addChecklist().0,
-           let icon = delegate?.addChecklist().1 {
+        if let text = delegate?.addList().text,
+           let icon = delegate?.addList().icon {
             addList(text: text, icon: icon)
             delegate = nil
         }

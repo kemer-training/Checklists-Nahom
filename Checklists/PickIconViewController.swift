@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol IconPickerViewControllerDelegate{
+    func assignIcon() -> UIImage
+}
 
 class PickIconViewController: UITableViewController, IconPickerViewControllerDelegate{
     var choosenIcon = UIImage(named: "Folder")
