@@ -18,11 +18,13 @@ class ItemDetailViewController: UITableViewController{
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var delegate: ChecklistViewControllerDelegate?
-    
+    var editAtIndex: Int?
+    var itemText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         itemTextField.becomeFirstResponder()
+        itemTextField.text = itemText
         loadChecklistItems()
     }
     
@@ -39,9 +41,12 @@ class ItemDetailViewController: UITableViewController{
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-    
-        delegate?.addItem(text: itemTextField.text!, remindMe: remindMeSwitch.isOn, date: datePicker.date, at: currentListIndex)
-
+        if let index = editAtIndex{
+            delegate?.updateItem(at: index, text: itemTextField.text!, remindMe: remindMeSwitch.isOn, date: datePicker.date)
+        }
+        else{
+            delegate?.addItem(text: itemTextField.text!, remindMe: remindMeSwitch.isOn, date: datePicker.date)
+        }
         saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }

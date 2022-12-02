@@ -8,7 +8,8 @@
 import UIKit
 
 protocol ChecklistViewControllerDelegate {
-    func addItem(text: String, remindMe: Bool, date: Date, at index: Int)
+    func addItem(text: String, remindMe: Bool, date: Date)
+    func updateItem(at itemIndex: Int, text: String, remindMe: Bool, date: Date)
 }
 
 class ChecklistViewController: UITableViewController {
@@ -63,7 +64,19 @@ class ChecklistViewController: UITableViewController {
         saveChecklistItems()
 
     }
-
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        let itemDetailVC = storyboard?.instantiateViewController(withIdentifier: "itemDetail") as! ItemDetailViewController
+        
+        itemDetailVC.delegate = self
+        itemDetailVC.title = "Edit Item"
+        itemDetailVC.itemText = (cell?.textLabel?.text)!
+        itemDetailVC.editAtIndex = indexPath.row
+        
+        
+        navigationController?.pushViewController(itemDetailVC, animated: true)
+    }
     
     override func tableView(
       _ tableView: UITableView,
@@ -93,17 +106,27 @@ class ChecklistViewController: UITableViewController {
 }
 
 extension ChecklistViewController: ChecklistViewControllerDelegate{
-    func addItem(text: String, remindMe: Bool, date: Date, at index: Int){
+    
+    func addItem(text: String, remindMe: Bool, date: Date){
         let item = ItemData()
         item.text = text
         item.remindMe = remindMe
         item.date = date
         
-        lists[index].items.append(item)
-        lists[index].itemsRemaining += 1
+        lists[currentListIndex].items.append(item)
+        lists[currentListIndex].itemsRemaining += 1
         
         saveChecklistItems()
     }
     
+    func updateItem(at itemIndex: Int, text: String, remindMe: Bool, date: Date) {
+        let item = ItemData()
+        item.text = text
+        item.remindMe = remindMe
+        item.date = date
+        
+        lists[currentListIndex].items[itemIndex] = item
+        saveChecklistItems()
+    }
     
 }
