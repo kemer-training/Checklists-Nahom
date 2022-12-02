@@ -180,6 +180,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Jf7-Go-XjF" kind="show" identifier="editItem" trigger="accessoryAction" id="Svq-ro-RS2"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -371,6 +374,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="vX8-bm-jtJ" kind="show" identifier="editList" trigger="accessoryAction" id="jHn-ef-p1S"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -413,6 +419,10 @@
             <point key="canvasLocation" x="219" y="-29"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Svq-ro-RS2"/>
+        <segue reference="jHn-ef-p1S"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Folder" width="36" height="36"/>
         <image name="No Icon" width="36" height="36"/>

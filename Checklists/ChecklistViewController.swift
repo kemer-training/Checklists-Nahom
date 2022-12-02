@@ -61,6 +61,10 @@ class ChecklistViewController: UITableViewController {
 
     }
     
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+
+    }
+    
 //    override func tableView(
 //      _ tableView: UITableView,
 //      commit editingStyle: UITableViewCell.EditingStyle,
@@ -76,6 +80,7 @@ class ChecklistViewController: UITableViewController {
     func configureCheckmark(for cell: UITableViewCell , at indexPath: IndexPath){
         if lists[currentListIndex].items[indexPath.row].checked {
             cell.imageView?.image = UIImage(named: "Icon-20")
+            
         }
         else {
             cell.imageView?.image = UIImage(named: "No Icon 1")

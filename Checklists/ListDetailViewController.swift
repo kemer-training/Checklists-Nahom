@@ -8,7 +8,8 @@
 import UIKit
 
 protocol ListDetailViewControllerDelegate {
-    func addList() -> (text: String, icon: UIImage)
+//    func addList() -> (text: String, icon: UIImage)
+    func editList(at index: Int)
     
 }
 
@@ -45,7 +46,7 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         
         text = validText
         icon = choosenIcon.image!
-
+        addList(text: text, icon: icon)
         vc.delegate = self
 
         navigationController?.popViewController(animated: true)
@@ -62,8 +63,26 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         }
     }
     
-    func addList() -> (text: String, icon: UIImage) {
-        return (text, icon)
+    func addList(text: String, icon: UIImage){
+        let list = ChecklistData()
+        list.text = text
+        list.icon = icon
+        lists.append(list)
+        
+        numberOfLists += 1
+        
+    }
+    
+//    func addList() -> (text: String, icon: UIImage) {
+//        return (text, icon)
+//    }
+    
+    
+    func editList(at index: Int) {
+        navigationItem.title = "Edit Checklist"
+        checklistTextField.text = lists[index].text
+        choosenIcon.image = lists[index].icon
+//        tableView.reloadData()
     }
     
     func validateText() -> String?{

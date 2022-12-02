@@ -17,7 +17,6 @@ class AllListsViewController: UITableViewController {
     var itemsRemaining = 0
     var delegate: ListDetailViewControllerDelegate?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -25,12 +24,11 @@ class AllListsViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let text = delegate?.addList().text,
-           let icon = delegate?.addList().icon {
-            addList(text: text, icon: icon)
-            delegate = nil
-        }
-        
+//        if let text = delegate?.addList().text,
+//           let icon = delegate?.addList().icon {
+//            addList(text: text, icon: icon)
+//            delegate = nil
+//        }
         
         if !lists.isEmpty{
             var uncheckedItems = 0
@@ -45,15 +43,15 @@ class AllListsViewController: UITableViewController {
         
     }
     
-    func addList(text: String, icon: UIImage){
-        let list = ChecklistData()
-        list.text = text
-        list.icon = icon
-        lists.append(list)
-        
-        numberOfLists += 1
-        
-    }
+//    func addList(text: String, icon: UIImage){
+//        let list = ChecklistData()
+//        list.text = text
+//        list.icon = icon
+//        lists.append(list)
+//
+//        numberOfLists += 1
+//
+//    }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,5 +86,9 @@ class AllListsViewController: UITableViewController {
         currentListIndex = indexPath.row
         
         performSegue(withIdentifier: "itemsSegue", sender: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        delegate!.editList(at: indexPath.row)
     }
 }
