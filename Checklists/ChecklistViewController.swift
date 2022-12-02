@@ -16,6 +16,8 @@ class ChecklistViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(documentsDirectory())
+        print(dataFilePath())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,5 +89,30 @@ class ChecklistViewController: UITableViewController {
             cell.imageView?.image = UIImage(named: "No Icon 1")
         }
     }
+    
+    
+    func documentsDirectory() -> URL {
+      let paths = FileManager.default.urls(
+        for: .documentDirectory,
+        in: .userDomainMask)
+      return paths[0]
+    }
+
+    func dataFilePath() -> URL {
+      return documentsDirectory().appendingPathComponent("Checklists.plist")
+    }
+    
+    func saveChecklistItems() {
+      let encoder = PropertyListEncoder()
+      do {
+          let data = try encoder.encode(lists)
+        try data.write(
+          to: dataFilePath(),
+          options: Data.WritingOptions.atomic)
+      } catch {
+        print("Error encoding item array: \(error.localizedDescription)")
+      }
+    }
+
 }
 

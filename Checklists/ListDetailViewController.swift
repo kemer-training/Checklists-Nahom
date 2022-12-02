@@ -19,7 +19,7 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
     @IBOutlet weak var checklistTextField: UITextField!
     @IBOutlet weak var choosenIcon: UIImageView!
     var text = ""
-    var icon: UIImage = UIImage()
+    var icon: String = "Folder"
     
     var delegate: IconPickerViewControllerDelegate?
 
@@ -45,7 +45,7 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         let vc = navigationController?.viewControllers[i!-1] as! AllListsViewController
         
         text = validText
-        icon = choosenIcon.image!
+//        icon = choosenIcon
         addList(text: text, icon: icon)
         vc.delegate = self
 
@@ -59,11 +59,12 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
     
     func updateIcon(){
         if let x = delegate?.assignIcon(){
-            choosenIcon.image = x
+            choosenIcon.image = UIImage(named: x)
+            icon = x
         }
     }
     
-    func addList(text: String, icon: UIImage){
+    func addList(text: String, icon: String){
         let list = ChecklistData()
         list.text = text
         list.icon = icon
@@ -81,7 +82,7 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
     func editList(at index: Int) {
         navigationItem.title = "Edit Checklist"
         checklistTextField.text = lists[index].text
-        choosenIcon.image = lists[index].icon
+        choosenIcon.image = UIImage(named: lists[index].icon) 
 //        tableView.reloadData()
     }
     
@@ -96,6 +97,8 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         return validText
     }
     
+    
+
     
 }
 

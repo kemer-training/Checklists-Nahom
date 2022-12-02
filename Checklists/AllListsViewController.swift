@@ -73,7 +73,7 @@ class AllListsViewController: UITableViewController {
         
         cell.textLabel?.text = lists[indexPath.row].text
         
-        cell.imageView?.image = lists[indexPath.row].icon
+        cell.imageView?.image = UIImage(named: lists[indexPath.row].icon)
         
         if lists[indexPath.row].numberOfItems == 0{
             cell.detailTextLabel?.text = "(No items)"

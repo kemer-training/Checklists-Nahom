@@ -7,16 +7,16 @@
 
 import UIKit
 
-class ChecklistData{
+class ChecklistData: Codable{
     
     var text = ""
-    var icon = UIImage(named: "Folder")
+    var icon = "Folder"
     var items: [ItemData] = []
     var numberOfItems = 0
     var itemsRemaining = 0
 }
 
-class ItemData{
+class ItemData: Codable{
     var text = ""
     var checked = false
 }

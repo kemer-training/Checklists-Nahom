@@ -8,12 +8,12 @@
 import UIKit
 
 protocol IconPickerViewControllerDelegate{
-    func assignIcon() -> UIImage
+    func assignIcon() -> String
 }
 
 class PickIconViewController: UITableViewController, IconPickerViewControllerDelegate{
-    var choosenIcon = UIImage(named: "Folder")
-    
+//    var choosenIcon = UIImage(named: "Folder")
+    var choosenIcon = "Folder"
     var iconsList = [
         "No Icon",
         "Appointments",
@@ -34,8 +34,8 @@ class PickIconViewController: UITableViewController, IconPickerViewControllerDel
     }
     
     
-    func assignIcon() -> UIImage {
-        return choosenIcon!
+    func assignIcon() -> String {
+        return choosenIcon
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,7 +59,8 @@ class PickIconViewController: UITableViewController, IconPickerViewControllerDel
         let vc = navigationController?.viewControllers[i!-1] as! ListDetailViewController
         
         let cell = tableView.cellForRow(at: indexPath)
-        choosenIcon = cell?.imageView?.image
+//        choosenIcon = cell?.imageView?.image
+        choosenIcon = (cell?.textLabel?.text)!
 
         vc.delegate = self
         navigationController?.popViewController(animated: true)
