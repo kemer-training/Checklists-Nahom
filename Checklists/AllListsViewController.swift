@@ -8,12 +8,15 @@
 import UIKit
 
 
+protocol AllListsViewControllerDelegate{
+    func addList(text: String, icon: String)
+    func sortList()
+}
+
 class AllListsViewController: UITableViewController {
-    
-    @IBOutlet weak var mainNavTitle: UINavigationItem!
+
     
     var itemsRemaining = 0
-    var delegate: ListDetailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,13 @@ class AllListsViewController: UITableViewController {
         
     }
     
+    @IBAction func addBtn(_ sender: UIBarButtonItem) {
+        let listDetailVC = storyboard?.instantiateViewController(withIdentifier: "listDetail") as! ListDetailViewController
+        
+        listDetailVC.delegate = self
+        navigationController?.pushViewController(listDetailVC, animated: true)
+    }
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         lists.remove(at: indexPath.row)
@@ -75,7 +85,30 @@ class AllListsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         currentListIndex = indexPath.row
         
-        performSegue(withIdentifier: "itemsSegue", sender: nil)
+        let ChecklistVC = storyboard?.instantiateViewController(withIdentifier: "checklists") as! ChecklistViewController
+        
+        navigationController?.pushViewController(ChecklistVC, animated: true)
     }
+    
+}
+
+
+extension AllListsViewController: AllListsViewControllerDelegate{
+    func addList(text: String, icon: String){
+        let list = ChecklistData()
+        list.text = text
+        list.icon = icon
+        lists.append(list)
+        
+        sortList()
+        saveChecklistItems()
+    }
+    
+    func sortList(){
+        lists.sort { list1, list2 in
+            list1.text < list2.text
+        }
+    }
+    
     
 }

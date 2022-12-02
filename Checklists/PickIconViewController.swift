@@ -7,11 +7,9 @@
 
 import UIKit
 
-protocol IconPickerViewControllerDelegate{
-    func assignIcon() -> String
-}
 
-class PickIconViewController: UITableViewController, IconPickerViewControllerDelegate{
+
+class PickIconViewController: UITableViewController{
 
     var choosenIcon = "Folder"
     var iconsList = [
@@ -27,6 +25,7 @@ class PickIconViewController: UITableViewController, IconPickerViewControllerDel
         "Trips"
     ]
     
+    var delegate: ListDetailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,13 +53,14 @@ class PickIconViewController: UITableViewController, IconPickerViewControllerDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let i = navigationController?.viewControllers.firstIndex(of: self)
-        let vc = navigationController?.viewControllers[i!-1] as! ListDetailViewController
-        
+//        let i = navigationController?.viewControllers.firstIndex(of: self)
+//        let vc = navigationController?.viewControllers[i!-1] as! ListDetailViewController
+//
         let cell = tableView.cellForRow(at: indexPath)
-        choosenIcon = (cell?.textLabel?.text)!
-
-        vc.delegate = self
+//        choosenIcon = (cell?.textLabel?.text)!
+        delegate?.assignIcon(with: (cell?.textLabel?.text)!)
+//        vc.delegate = self
+        
         navigationController?.popViewController(animated: true)
     }
 }

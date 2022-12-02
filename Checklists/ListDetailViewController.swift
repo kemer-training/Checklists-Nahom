@@ -7,11 +7,14 @@
 
 import UIKit
 
-protocol ListDetailViewControllerDelegate {
-    func editList(at index: Int)
+//protocol ListDetailViewControllerDelegate {
+//    func editList(at index: Int)
+//}
+protocol ListDetailViewControllerDelegate{
+    func assignIcon(with icon: String)
 }
 
-class ListDetailViewController: UITableViewController, ListDetailViewControllerDelegate {
+class ListDetailViewController: UITableViewController {
     
     
     @IBOutlet weak var checklistTextField: UITextField!
@@ -19,7 +22,7 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
     var text = ""
     var icon: String = "Folder"
     
-    var delegate: IconPickerViewControllerDelegate?
+    var delegate: AllListsViewControllerDelegate?
 
     
     override func viewDidLoad() {
@@ -29,9 +32,16 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateIcon()
+        
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        let pickIconVC = storyboard?.instantiateViewController(withIdentifier: "pickIcon") as! PickIconViewController
+        
+        pickIconVC.delegate = self
+        navigationController?.pushViewController(pickIconVC, animated: true)
+    }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
         
@@ -39,12 +49,8 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
             return
         }
         
-        let i = navigationController?.viewControllers.firstIndex(of: self)
-        let vc = navigationController?.viewControllers[i!-1] as! AllListsViewController
-        
         text = validText
-        addList(text: text, icon: icon)
-        vc.delegate = self
+        delegate?.addList(text: validText, icon: icon)
 
         navigationController?.popViewController(animated: true)
     }
@@ -54,28 +60,6 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         navigationController?.popViewController(animated: true)
     }
     
-    func updateIcon(){
-        if let x = delegate?.assignIcon(){
-            choosenIcon.image = UIImage(named: x)
-            icon = x
-        }
-    }
-    
-    func addList(text: String, icon: String){
-        let list = ChecklistData()
-        list.text = text
-        list.icon = icon
-        lists.append(list)
-        
-        sortList()
-        saveChecklistItems()
-    }
-    
-    func sortList(){
-        lists.sort { list1, list2 in
-            list1.text < list2.text
-        }
-    }
     
     func editList(at index: Int) {
         
@@ -93,8 +77,12 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         return validText
     }
     
-    
 
-    
 }
 
+extension ListDetailViewController: ListDetailViewControllerDelegate{
+    func assignIcon(with icon: String) {
+        choosenIcon.image = UIImage(named: icon)
+    }
+
+}

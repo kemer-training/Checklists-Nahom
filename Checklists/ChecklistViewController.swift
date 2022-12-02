@@ -7,11 +7,12 @@
 
 import UIKit
 
+protocol ChecklistViewControllerDelegate {
+    func addItem(text: String, remindMe: Bool, date: Date, at index: Int)
+}
 
 class ChecklistViewController: UITableViewController {
 
-
-    var delegate: ItemDetailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,28 +20,23 @@ class ChecklistViewController: UITableViewController {
         loadChecklistItems()
     }
     
+    @IBAction func addBtn(_ sender: UIBarButtonItem) {
+        let itemDetailVC = storyboard?.instantiateViewController(withIdentifier: "itemDetail") as! ItemDetailViewController
+        itemDetailVC.delegate = self
+        
+        navigationController?.pushViewController(itemDetailVC, animated: true)
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.title = lists[currentListIndex].text
-        guard let delegate = delegate?.getItem() else { return }
-        
-        addItem(text: delegate.0!, remindMe: delegate.1, date: delegate.2, at: currentListIndex)
         
         tableView.reloadData()
     }
     
-    func addItem(text: String, remindMe: Bool, date: Date, at index: Int){
-        let item = ItemData()
-        item.text = text
-        item.remindMe = remindMe
-        item.date = date
-        
-        lists[index].items.append(item)
-        lists[index].itemsRemaining += 1
-        
-        saveChecklistItems()
-    }
+    
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,10 +89,21 @@ class ChecklistViewController: UITableViewController {
     }
     
     
-    
-    
-    
-
 
 }
 
+extension ChecklistViewController: ChecklistViewControllerDelegate{
+    func addItem(text: String, remindMe: Bool, date: Date, at index: Int){
+        let item = ItemData()
+        item.text = text
+        item.remindMe = remindMe
+        item.date = date
+        
+        lists[index].items.append(item)
+        lists[index].itemsRemaining += 1
+        
+        saveChecklistItems()
+    }
+    
+    
+}
