@@ -36,14 +36,12 @@ class AllListsViewController: UITableViewController {
         tableView.reloadData()
         
     }
-
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         lists.remove(at: indexPath.row)
         
-        let indexPaths = [indexPath]
-        tableView.deleteRows(at: indexPaths, with: .automatic)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
         saveChecklistItems()
     }
     

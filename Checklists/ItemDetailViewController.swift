@@ -23,8 +23,9 @@ class ItemDetailViewController: UITableViewController, ItemDetailViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         itemTextField.becomeFirstResponder()
-        
+        loadChecklistItems()
     }
+
     
 
     func getItem() -> (String?, Bool, Date) {

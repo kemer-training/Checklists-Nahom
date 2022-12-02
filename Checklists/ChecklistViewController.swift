@@ -84,11 +84,11 @@ class ChecklistViewController: UITableViewController {
     
     func configureCheckmark(for cell: UITableViewCell , at indexPath: IndexPath){
         if lists[currentListIndex].items[indexPath.row].checked {
-            cell.imageView?.image = UIImage(named: "Icon-20")
+            cell.imageView?.image = UIImage(named: "icon-checked")
             
         }
         else {
-            cell.imageView?.image = UIImage(named: "No Icon 1")
+            cell.imageView?.image = UIImage(named: "icon-unchecked")
         }
     }
     

@@ -67,15 +67,16 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         list.icon = icon
         lists.append(list)
         
+        sortList()
         saveChecklistItems()
+    }
+    
+    func sortList(){
         
     }
     
-    
     func editList(at index: Int) {
-//        navigationItem.title = "Edit Checklist"
-//        checklistTextField.text = lists[index].text
-//        choosenIcon.image = UIImage(named: lists[index].icon)
+        
     }
     
     func validateText() -> String?{
