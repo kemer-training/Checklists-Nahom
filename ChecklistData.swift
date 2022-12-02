@@ -19,6 +19,8 @@ class ChecklistData: Codable{
 class ItemData: Codable{
     var text = ""
     var checked = false
+    var remindMe = true
+    var date = Date()
 }
 
 var lists: [ChecklistData] = []

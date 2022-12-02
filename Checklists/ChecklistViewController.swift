@@ -22,6 +22,7 @@ class ChecklistViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.title = lists[currentListIndex].text
         guard let delegate = delegate?.getItem() else { return }
         
         addItem(text: delegate.0!, remindMe: delegate.1, date: delegate.2, at: currentListIndex)
@@ -32,6 +33,9 @@ class ChecklistViewController: UITableViewController {
     func addItem(text: String, remindMe: Bool, date: Date, at index: Int){
         let item = ItemData()
         item.text = text
+        item.remindMe = remindMe
+        item.date = date
+        
         lists[index].items.append(item)
         lists[index].numberOfItems += 1
         lists[index].itemsRemaining += 1

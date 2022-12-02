@@ -25,6 +25,7 @@ class ItemDetailViewController: UITableViewController, ItemDetailViewControllerD
         itemTextField.becomeFirstResponder()
         
     }
+    
 
     func getItem() -> (String?, Bool, Date) {
         return (validateText(), remindMeSwitch.isEnabled, datePicker.date)

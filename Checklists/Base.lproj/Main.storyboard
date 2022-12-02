@@ -392,7 +392,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="mainNavTitle" destination="f2m-Qb-LTo" id="asa-WG-Ti3"/>
                         <segue destination="Hfs-NC-0GI" kind="show" identifier="itemsSegue" id="YDc-Cb-NyP"/>
                     </connections>
                 </tableViewController>
