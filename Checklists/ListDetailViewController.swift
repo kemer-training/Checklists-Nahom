@@ -72,7 +72,9 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
     }
     
     func sortList(){
-        
+        lists.sort { list1, list2 in
+            list1.text < list2.text
+        }
     }
     
     func editList(at index: Int) {

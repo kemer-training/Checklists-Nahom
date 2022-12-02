@@ -12,6 +12,7 @@ func documentsDirectory() -> URL {
   let paths = FileManager.default.urls(
     for: .documentDirectory,
     in: .userDomainMask)
+    
   return paths[0]
 }
 
@@ -32,6 +33,7 @@ func saveChecklistItems() {
 
 func loadChecklistItems() {
     let path = dataFilePath()
+    
     if let data = try? Data(contentsOf: path) {
         let decoder = PropertyListDecoder()
         do {
