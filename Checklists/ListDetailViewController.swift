@@ -8,9 +8,7 @@
 import UIKit
 
 protocol ListDetailViewControllerDelegate {
-//    func addList() -> (text: String, icon: UIImage)
     func editList(at index: Int)
-    
 }
 
 class ListDetailViewController: UITableViewController, ListDetailViewControllerDelegate {
@@ -45,7 +43,6 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         let vc = navigationController?.viewControllers[i!-1] as! AllListsViewController
         
         text = validText
-//        icon = choosenIcon
         addList(text: text, icon: icon)
         vc.delegate = self
 
@@ -71,19 +68,15 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         lists.append(list)
         
         numberOfLists += 1
+        saveChecklistItems()
         
     }
     
-//    func addList() -> (text: String, icon: UIImage) {
-//        return (text, icon)
-//    }
-    
     
     func editList(at index: Int) {
-        navigationItem.title = "Edit Checklist"
-        checklistTextField.text = lists[index].text
-        choosenIcon.image = UIImage(named: lists[index].icon) 
-//        tableView.reloadData()
+//        navigationItem.title = "Edit Checklist"
+//        checklistTextField.text = lists[index].text
+//        choosenIcon.image = UIImage(named: lists[index].icon)
     }
     
     func validateText() -> String?{
@@ -91,6 +84,7 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         trimmedInput = trimmedInput.filter { !($0.isEmpty) }
         
         let validText = trimmedInput.joined(separator: " ")
+        
         if validText.isEmpty{
             return nil
         }

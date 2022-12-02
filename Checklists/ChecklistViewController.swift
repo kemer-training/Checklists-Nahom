@@ -16,8 +16,7 @@ class ChecklistViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(documentsDirectory())
-        print(dataFilePath())
+        loadChecklistItems()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,7 +25,6 @@ class ChecklistViewController: UITableViewController {
         guard let delegate = delegate?.getItem() else { return }
         
         addItem(text: delegate.0!, remindMe: delegate.1, date: delegate.2, at: currentListIndex)
-        
         
         tableView.reloadData()
     }
@@ -37,6 +35,8 @@ class ChecklistViewController: UITableViewController {
         lists[index].items.append(item)
         lists[index].numberOfItems += 1
         lists[index].itemsRemaining += 1
+        
+        saveChecklistItems()
     }
     
     
@@ -60,12 +60,11 @@ class ChecklistViewController: UITableViewController {
         
         lists[currentListIndex].items[indexPath.row].checked.toggle()
         configureCheckmark(for: cell!, at: indexPath)
+        
+        saveChecklistItems()
 
     }
-    
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
 
-    }
     
     override func tableView(
       _ tableView: UITableView,
@@ -75,8 +74,9 @@ class ChecklistViewController: UITableViewController {
         lists[currentListIndex].items.remove(at: indexPath.row)
         lists[currentListIndex].numberOfItems -= 1
         
-      let indexPaths = [indexPath]
-      tableView.deleteRows(at: indexPaths, with: .automatic)
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+        saveChecklistItems()
     }
 
     
@@ -91,28 +91,10 @@ class ChecklistViewController: UITableViewController {
     }
     
     
-    func documentsDirectory() -> URL {
-      let paths = FileManager.default.urls(
-        for: .documentDirectory,
-        in: .userDomainMask)
-      return paths[0]
-    }
-
-    func dataFilePath() -> URL {
-      return documentsDirectory().appendingPathComponent("Checklists.plist")
-    }
     
-    func saveChecklistItems() {
-      let encoder = PropertyListEncoder()
-      do {
-          let data = try encoder.encode(lists)
-        try data.write(
-          to: dataFilePath(),
-          options: Data.WritingOptions.atomic)
-      } catch {
-        print("Error encoding item array: \(error.localizedDescription)")
-      }
-    }
+    
+    
+
 
 }
 

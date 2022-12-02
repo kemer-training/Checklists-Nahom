@@ -8,8 +8,6 @@
 import UIKit
 
 
-
-
 class AllListsViewController: UITableViewController {
     
     @IBOutlet weak var mainNavTitle: UINavigationItem!
@@ -24,11 +22,7 @@ class AllListsViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        if let text = delegate?.addList().text,
-//           let icon = delegate?.addList().icon {
-//            addList(text: text, icon: icon)
-//            delegate = nil
-//        }
+        loadChecklistItems()
         
         if !lists.isEmpty{
             var uncheckedItems = 0
@@ -42,24 +36,16 @@ class AllListsViewController: UITableViewController {
         tableView.reloadData()
         
     }
-    
-//    func addList(text: String, icon: UIImage){
-//        let list = ChecklistData()
-//        list.text = text
-//        list.icon = icon
-//        lists.append(list)
-//
-//        numberOfLists += 1
-//
-//    }
+
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         lists.remove(at: indexPath.row)
         numberOfLists -= 1
         
-      let indexPaths = [indexPath]
-      tableView.deleteRows(at: indexPaths, with: .automatic)
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+        saveChecklistItems()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,7 +58,6 @@ class AllListsViewController: UITableViewController {
         
         
         cell.textLabel?.text = lists[indexPath.row].text
-        
         cell.imageView?.image = UIImage(named: lists[indexPath.row].icon)
         
         if lists[indexPath.row].numberOfItems == 0{
@@ -96,7 +81,4 @@ class AllListsViewController: UITableViewController {
         performSegue(withIdentifier: "itemsSegue", sender: nil)
     }
     
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-//        delegate!.editList(at: indexPath.row)
-    }
 }

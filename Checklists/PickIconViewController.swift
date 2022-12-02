@@ -12,7 +12,7 @@ protocol IconPickerViewControllerDelegate{
 }
 
 class PickIconViewController: UITableViewController, IconPickerViewControllerDelegate{
-//    var choosenIcon = UIImage(named: "Folder")
+
     var choosenIcon = "Folder"
     var iconsList = [
         "No Icon",
@@ -32,7 +32,6 @@ class PickIconViewController: UITableViewController, IconPickerViewControllerDel
         super.viewDidLoad()
         
     }
-    
     
     func assignIcon() -> String {
         return choosenIcon
@@ -59,7 +58,6 @@ class PickIconViewController: UITableViewController, IconPickerViewControllerDel
         let vc = navigationController?.viewControllers[i!-1] as! ListDetailViewController
         
         let cell = tableView.cellForRow(at: indexPath)
-//        choosenIcon = cell?.imageView?.image
         choosenIcon = (cell?.textLabel?.text)!
 
         vc.delegate = self

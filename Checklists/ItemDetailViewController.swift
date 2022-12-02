@@ -48,7 +48,7 @@ class ItemDetailViewController: UITableViewController, ItemDetailViewControllerD
         
 
         vc.delegate = self
-        
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
     
