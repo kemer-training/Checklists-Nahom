@@ -65,16 +65,17 @@ class ChecklistViewController: UITableViewController {
 
     }
     
-//    override func tableView(
-//      _ tableView: UITableView,
-//      commit editingStyle: UITableViewCell.EditingStyle,
-//      forRowAt indexPath: IndexPath
-//    ) {
-//        lists[currentListIndex].items.remove(at: indexPath.row)
-//
-//      let indexPaths = [indexPath]
-//      tableView.deleteRows(at: indexPaths, with: .automatic)
-//    }
+    override func tableView(
+      _ tableView: UITableView,
+      commit editingStyle: UITableViewCell.EditingStyle,
+      forRowAt indexPath: IndexPath
+    ) {
+        lists[currentListIndex].items.remove(at: indexPath.row)
+        lists[currentListIndex].numberOfItems -= 1
+        
+      let indexPaths = [indexPath]
+      tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
 
     
     func configureCheckmark(for cell: UITableViewCell , at indexPath: IndexPath){

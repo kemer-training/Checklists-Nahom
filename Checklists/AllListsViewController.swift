@@ -53,6 +53,14 @@ class AllListsViewController: UITableViewController {
 //
 //    }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        lists.remove(at: indexPath.row)
+        numberOfLists -= 1
+        
+      let indexPaths = [indexPath]
+      tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfLists
@@ -89,6 +97,6 @@ class AllListsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        delegate!.editList(at: indexPath.row)
+//        delegate!.editList(at: indexPath.row)
     }
 }
