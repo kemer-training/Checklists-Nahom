@@ -11,6 +11,7 @@ import UIKit
 protocol AllListsViewControllerDelegate{
     func addList(text: String, icon: String)
     func sortList()
+    func updateList(at index: Int, with text: String, and icon: String)
 }
 
 class AllListsViewController: UITableViewController {
@@ -90,6 +91,18 @@ class AllListsViewController: UITableViewController {
         navigationController?.pushViewController(ChecklistVC, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        
+        let listDetailVC = storyboard?.instantiateViewController(withIdentifier: "listDetail") as! ListDetailViewController
+        
+        listDetailVC.delegate = self
+        listDetailVC.title = "Edit List"
+        listDetailVC.text = lists[indexPath.row].text
+        listDetailVC.icon = lists[indexPath.row].icon
+        listDetailVC.editAtIndex = indexPath.row
+        navigationController?.pushViewController(listDetailVC, animated: true)
+    }
+    
 }
 
 
@@ -110,5 +123,14 @@ extension AllListsViewController: AllListsViewControllerDelegate{
         }
     }
     
+    func updateList(at index: Int, with text: String, and icon: String) {
+        let list = ChecklistData()
+        list.text = text
+        list.icon = icon
+        lists[index] = list
+        
+        sortList()
+        saveChecklistItems()
+    }
     
 }

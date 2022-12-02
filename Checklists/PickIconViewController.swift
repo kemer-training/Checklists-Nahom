@@ -53,13 +53,9 @@ class PickIconViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let i = navigationController?.viewControllers.firstIndex(of: self)
-//        let vc = navigationController?.viewControllers[i!-1] as! ListDetailViewController
-//
+
         let cell = tableView.cellForRow(at: indexPath)
-//        choosenIcon = (cell?.textLabel?.text)!
         delegate?.assignIcon(with: (cell?.textLabel?.text)!)
-//        vc.delegate = self
         
         navigationController?.popViewController(animated: true)
     }

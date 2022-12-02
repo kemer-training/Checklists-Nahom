@@ -7,9 +7,7 @@
 
 import UIKit
 
-//protocol ListDetailViewControllerDelegate {
-//    func editList(at index: Int)
-//}
+
 protocol ListDetailViewControllerDelegate{
     func assignIcon(with icon: String)
 }
@@ -20,7 +18,8 @@ class ListDetailViewController: UITableViewController {
     @IBOutlet weak var checklistTextField: UITextField!
     @IBOutlet weak var choosenIcon: UIImageView!
     var text = ""
-    var icon: String = "Folder"
+    var icon: String = "Appointments"
+    var editAtIndex: Int?
     
     var delegate: AllListsViewControllerDelegate?
 
@@ -32,7 +31,10 @@ class ListDetailViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if editAtIndex != nil{
+            checklistTextField.text = text
+            choosenIcon.image = UIImage(named: icon)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -50,8 +52,13 @@ class ListDetailViewController: UITableViewController {
         }
         
         text = validText
-        delegate?.addList(text: validText, icon: icon)
-
+        
+        if let index = editAtIndex{
+            delegate?.updateList(at: index, with: checklistTextField.text!, and: icon)
+        }
+        else{
+            delegate?.addList(text: text, icon: icon)
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -60,10 +67,6 @@ class ListDetailViewController: UITableViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    
-    func editList(at index: Int) {
-        
-    }
     
     func validateText() -> String?{
         var trimmedInput = (checklistTextField.text?.components(separatedBy: " "))!
@@ -82,6 +85,7 @@ class ListDetailViewController: UITableViewController {
 
 extension ListDetailViewController: ListDetailViewControllerDelegate{
     func assignIcon(with icon: String) {
+        self.icon = icon
         choosenIcon.image = UIImage(named: icon)
     }
 

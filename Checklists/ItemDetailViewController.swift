@@ -25,12 +25,7 @@ class ItemDetailViewController: UITableViewController{
         itemTextField.becomeFirstResponder()
         loadChecklistItems()
     }
-
     
-
-//    func getItem() -> (String?, Bool, Date) {
-//        return (validateText(), remindMeSwitch.isEnabled, datePicker.date)
-//    }
     
     func validateText() -> String?{
         var trimmedInput = (itemTextField.text?.components(separatedBy: " "))!
@@ -44,12 +39,9 @@ class ItemDetailViewController: UITableViewController{
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-        
-//        let i = navigationController?.viewControllers.firstIndex(of: self)
-//        let vc = navigationController?.viewControllers[i!-1] as! ChecklistViewController
+    
         delegate?.addItem(text: itemTextField.text!, remindMe: remindMeSwitch.isOn, date: datePicker.date, at: currentListIndex)
 
-//        vc.delegate = self
         saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
