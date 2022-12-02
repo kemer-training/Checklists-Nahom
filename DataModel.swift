@@ -36,7 +36,6 @@ func loadChecklistItems() {
         let decoder = PropertyListDecoder()
         do {
             lists = try decoder.decode([ChecklistData].self,from: data)
-            numberOfLists = lists.count
         }
         catch {
         print("Error decoding item array: \(error.localizedDescription)")

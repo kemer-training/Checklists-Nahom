@@ -12,7 +12,6 @@ class ChecklistData: Codable{
     var text = ""
     var icon = "Folder"
     var items: [ItemData] = []
-    var numberOfItems = 0
     var itemsRemaining = 0
 }
 
@@ -24,7 +23,6 @@ class ItemData: Codable{
 }
 
 var lists: [ChecklistData] = []
-var numberOfLists = 0
 var currentListIndex = 0
 
 

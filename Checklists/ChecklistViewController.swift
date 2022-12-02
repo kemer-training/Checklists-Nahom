@@ -37,7 +37,6 @@ class ChecklistViewController: UITableViewController {
         item.date = date
         
         lists[index].items.append(item)
-        lists[index].numberOfItems += 1
         lists[index].itemsRemaining += 1
         
         saveChecklistItems()
@@ -76,7 +75,6 @@ class ChecklistViewController: UITableViewController {
       forRowAt indexPath: IndexPath
     ) {
         lists[currentListIndex].items.remove(at: indexPath.row)
-        lists[currentListIndex].numberOfItems -= 1
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)

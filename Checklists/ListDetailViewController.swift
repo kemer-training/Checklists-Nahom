@@ -67,7 +67,6 @@ class ListDetailViewController: UITableViewController, ListDetailViewControllerD
         list.icon = icon
         lists.append(list)
         
-        numberOfLists += 1
         saveChecklistItems()
         
     }

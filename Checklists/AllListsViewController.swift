@@ -41,7 +41,6 @@ class AllListsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         lists.remove(at: indexPath.row)
-        numberOfLists -= 1
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
@@ -49,7 +48,7 @@ class AllListsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfLists
+        return lists.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,7 +59,7 @@ class AllListsViewController: UITableViewController {
         cell.textLabel?.text = lists[indexPath.row].text
         cell.imageView?.image = UIImage(named: lists[indexPath.row].icon)
         
-        if lists[indexPath.row].numberOfItems == 0{
+        if lists[indexPath.row].items.count == 0{
             cell.detailTextLabel?.text = "(No items)"
         }
         else if lists[indexPath.row].itemsRemaining == 0 {
